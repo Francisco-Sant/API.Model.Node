@@ -1,0 +1,39 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: node/package-lock.json
+
+      - name: Install dependencies
+        working-directory: node
+        run: npm ci
+
+      - name: Check types
+        working-directory: node
+        run: npm run check-types
+
+      - name: Build
+        working-directory: node
+        run: npm run build
+
+      - name: Run tests
+        working-directory: node
+        run: npm test

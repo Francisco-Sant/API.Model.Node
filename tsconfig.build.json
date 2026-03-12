@@ -1,0 +1,23 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": [
+            "ES2022"
+        ],
+        "outDir": "dist",
+        "rootDir": "src",
+        "types": [
+            "node"
+        ],
+        "sourceMap": true,
+        "declaration": false
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "tests",
+        "dist"
+    ]
+}
