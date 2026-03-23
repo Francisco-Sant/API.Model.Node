@@ -23,3 +23,21 @@ jobs:
           tags: |
             franciscosant/api-model-node:v${{ github.run_number}}
             franciscosant/api-model-node:latest
+  CD:
+    runs-on: ubuntu-latest
+    needs: [CI]
+    steps:
+      - name: Pegando base do codigo
+        uses: actions/checkout@v6
+      - name: Configuração do Kubeconfig (contexto)
+        uses: azure/k8s-set-context@v4.0.2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+      - name: Deploy do manifesto
+        uses: Azure/k8s-deploy@v5.1.0
+        with:
+          manifests: |
+            .
+          images: |
+            franciscosant/api-model-node:v${{ github.run_number}}

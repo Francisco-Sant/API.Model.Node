@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-node
-          image: franciscosant/api-model-node:v1
+          image: franciscosant/api-model-node
           ports:
             - containerPort: 8000
           env:
